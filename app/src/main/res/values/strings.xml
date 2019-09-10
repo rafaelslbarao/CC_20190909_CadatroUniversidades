@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">CadatroUniversidades</string>
+    <string name="TelaDeCadastro">Tela de Cadastro</string>
+    <string name="ListagemDeUniversidade">Listagem de Universidades</string>
+    <string name="Codigo">Código</string>
+    <string name="Nome">Nome</string>
+    <string name="Cidade">Cidade</string>
+    <string name="Estado">Estado</string>
+    <string name="Salvar">Salvar</string>
+    <string name="Excluir">Excluir</string>
+    <string name="InformeCodigo">Informe o Código</string>
+    <string name="InformeNome">Informe o Nome</string>
+    <string name="InformeCidade">Informe a Cidade</string>
+    <string name="InformeEstado">Selecione o Estado</string>
+
+
+    <string-array name="estados">
+        <item>Selecione o Estado</item>
+        <item>SP</item>
+        <item>RJ</item>
+        <item>MG</item>
+        <item>SC</item>
+        <item>RS</item>
+
+    </string-array>
+
+</resources>
