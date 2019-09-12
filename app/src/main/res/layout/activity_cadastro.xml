@@ -37,6 +37,8 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etNome"
+            android:maxLines="1"
+            android:inputType="textCapWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -49,6 +51,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:id="@+id/etCidade"
+            android:inputType="textCapCharacters"
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -75,13 +78,6 @@
                 android:layout_weight="1"
                 android:text="@string/Salvar"
                 android:id="@+id/btSalvar"
-                android:layout_height="wrap_content" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:id="@+id/btExcluir"
-                android:layout_weight="1"
-                android:text="@string/Excluir"
                 android:layout_height="wrap_content" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -5,9 +5,14 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatSpinner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+
+import java.io.Serializable;
+
+import br.rafael.cadatrouniversidades.Model.Universidade;
 
 public class CadastroActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,7 +21,8 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
     private AppCompatEditText etCidade;
     private AppCompatSpinner spEstado;
     private AppCompatButton btSalvar;
-    private AppCompatButton btExcluir;
+    //
+    private Universidade universidade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,7 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
         inicializaComponenetes();
         inicializaEventos();
         carregaInformacoesSpinner();
+        carregaInformacoesPassadasPorParametro();
     }
 
     private void inicializaComponenetes() {
@@ -33,12 +40,10 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
         etCidade = findViewById(R.id.etCidade);
         spEstado = findViewById(R.id.spEstado);
         btSalvar = findViewById(R.id.btSalvar);
-        btExcluir = findViewById(R.id.btExcluir);
     }
 
     private void inicializaEventos() {
         btSalvar.setOnClickListener(this);
-        btExcluir.setOnClickListener(this);
     }
 
     @Override
@@ -46,8 +51,6 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.btSalvar:
                 confirmaTela();
-                break;
-            case R.id.btExcluir:
                 break;
         }
 
@@ -60,10 +63,37 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
         spEstado.setAdapter(adapterEstados);
     }
 
+    private void carregaInformacoesPassadasPorParametro()
+    {
+        Serializable objetoPassado = getIntent().getSerializableExtra(Universidade.EXTRA_NAME);
+        if(objetoPassado != null)
+        {
+            universidade = (Universidade) objetoPassado;
+            carregaInformacoesParaAtualizacao();
+        }
+    }
+
+    private void carregaInformacoesParaAtualizacao()
+    {
+        etCodigo.setEnabled(false);
+        etCodigo.setText(universidade.getCodigo().toString());
+        etNome.setText(universidade.getNome());
+        etCidade.setText(universidade.getCidade());
+
+        for(int i = 0; i < spEstado.getCount(); i++)
+        {
+            if(spEstado.getItemAtPosition(i).equals(universidade.getEstado())) {
+                spEstado.setSelection(i);
+                break;
+            }
+        }
+
+        etCodigo.setText(universidade.getCodigo().toString());
+    }
+
     private void confirmaTela() {
         if (!validaTela())
             return;
-
 
         if (salvaInformacoes()) {
             this.finish();
@@ -98,6 +128,17 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean salvaInformacoes() {
+        //
+        Universidade minhaUniversidade = new Universidade();
+        minhaUniversidade.setCodigo(Long.parseLong(etCodigo.getText().toString()));
+        minhaUniversidade.setNome(etNome.getText().toString());
+        minhaUniversidade.setCidade(etCidade.getText().toString());
+        minhaUniversidade.setEstado(spEstado.getSelectedItem().toString());
+        //
+        Intent data = new Intent();
+        data.putExtra(Universidade.EXTRA_NAME, minhaUniversidade);
+        //
+        setResult(RESULT_OK, data);
         return true;
     }
 }
