@@ -84,9 +84,9 @@ public class ListagemActivity extends AppCompatActivity {
     }
 
     private void inicializaEventos() {
-        btAdicionar.setOnClickListener(new View.OnClickListener() {
+        btAdicionar.setOnClickListener(new OnSingleclickListener(1000) {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 Intent telaCadastro = new Intent(ListagemActivity.this, CadastroActivity.class);
                 startActivityForResult(telaCadastro, REQUEST_CADASTRO_UNIVERSIDADE);
             }
